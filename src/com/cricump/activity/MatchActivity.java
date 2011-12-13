@@ -71,7 +71,7 @@ public class MatchActivity extends Activity {
     }
 
     public void chooseRuns(View view) {
-        startMatchPlayersActivity(view);
+        startChooseRunsActivity(view);
     }
 
     public void chooseMatch(View view) {
@@ -92,8 +92,8 @@ public class MatchActivity extends Activity {
         return settings.edit();
     }
 
-    private void startMatchPlayersActivity(View view) {
-        final Intent intent = new Intent(MatchActivity.this, MatchPlayersActivity.class);
+    private void startChooseRunsActivity(View view) {
+        final Intent intent = new Intent(MatchActivity.this, ChooseRunsActivity.class);
         intent.putExtra("matchDescriptor", matchDescriptor);
         intent.putExtra("button", view.getId());
         startActivity(intent);

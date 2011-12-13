@@ -10,13 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import com.cricump.R;
 import com.cricump.data.Cache;
 import com.cricump.data.Match;
 import com.cricump.net.Client;
 import com.cricump.net.ClientCallback;
 
-public class MatchPlayersActivity extends ListActivity {
+public class ChooseRunsActivity extends ListActivity {
 
     private ProgressDialog progressDialog;
     private Match match;
@@ -25,11 +24,11 @@ public class MatchPlayersActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, final int position, long id) {
         String user = readUserName();
         // for simple list item of runs.. 0, 1, 2 etc. ... the runs value equals the position..
-        progressDialog = ProgressDialog.show(MatchPlayersActivity.this, "", "Submitting Prediction...", true);
+        progressDialog = ProgressDialog.show(ChooseRunsActivity.this, "", "Submitting Prediction...", true);
         Client.postPrediction(match, user, position, new ClientCallback() {
             public void onSuccess(Object o) {
                 progressDialog.dismiss();
-                final Intent intent = new Intent(MatchPlayersActivity.this, MatchActivity.class);
+                final Intent intent = new Intent(ChooseRunsActivity.this, MatchActivity.class);
                 intent.putExtra("matchDescriptor", match.getDescriptor());
                 intent.putExtra("predictedRuns", position);
                 startActivity(intent);
@@ -77,7 +76,7 @@ public class MatchPlayersActivity extends ListActivity {
     }
 
     private void goToSplash() {
-        final Intent i = new Intent(MatchPlayersActivity.this, CricUmpActivity.class);
+        final Intent i = new Intent(ChooseRunsActivity.this, CricUmpActivity.class);
         startActivity(i);
     }
 
