@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/LinearLayout01"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView android:id="@+id/scroll_match"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+            >
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
+            <TableLayout android:id="@+id/history_table"
+                         android:layout_width="fill_parent"
+                         android:layout_height="wrap_content"
+                         android:shrinkColumns="*"
+                    >
+             </TableLayout>
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <Button android:id="@+id/refresh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="Refresh"
+                        android:onClick="refresh"/>
+                <CheckBox android:id="@+id/toggleHistory"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:onClick="toggleHistory"
+                        android:text="Show More History"
+                        />
+            </RelativeLayout>
+            <View android:layout_width="fill_parent"
+                  android:layout_height="2dip"
+                  android:background="#FFFFFF"/>
+            <LinearLayout
+                    android:id="@+id/user_name_layout"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    >
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ADFF2F"
+                        android:text="What is your name?"/>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                    <EditText
+                            android:id="@+id/user_name"
+                            android:layout_width="200sp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:singleLine="true"
+                            android:background="#FFFF66"/>
+                    <Button android:id="@+id/user_name_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Let's Play"
+                            android:onClick="saveUserName"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/post_waffle_layout"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:visibility="gone"
+                    >
+                <EditText
+                        android:id="@+id/waffle"
+                        android:layout_width="200sp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:singleLine="true"
+                        />
+                <Button android:id="@+id/post_waffle_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Post Message"
+                        android:onClick="postWaffle"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:id="@+id/choose_runs_layout"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:visibility="gone"
+                    >
+                <TextView
+                        android:id="@+id/choose_runs_label"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        />
+                <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    <Button android:id="@+id/choose_runs_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/choose_runs"
+                            android:onClick="chooseRuns"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <View android:layout_width="fill_parent"
+                  android:layout_height="2dip"
+                  android:background="#FFFFFF"/>
+            <TableLayout android:id="@+id/rankings"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:paddingBottom="10dip"
+                    >
+             </TableLayout>
+
+
+            <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                <Button android:id="@+id/other_matches"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="Other Matches"
+                        android:onClick="chooseMatch"/>
+                <Button android:id="@+id/sign_out"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:text="Sign Out"
+                        android:visibility="invisible"
+                        android:onClick="signOut"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
