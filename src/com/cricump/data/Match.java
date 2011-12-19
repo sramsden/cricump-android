@@ -29,7 +29,8 @@ public class Match {
 
     public HistoryItem[] addRecentHistoryItem(HistoryItem historyItem){
         HistoryItem[] his = {historyItem};
-        return HistoryItem.concat(recentHistoryItems,his);
+        recentHistoryItems = HistoryItem.concat(recentHistoryItems,his);
+        return recentHistoryItems;
     }
 
     public HistoryItem[] addRecentHistoryItems(HistoryItem[] historyItems){

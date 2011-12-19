@@ -139,7 +139,7 @@ public class MatchActivity extends Activity {
                 public void onSuccess(Object o) {
                     waffleTextField.setText("");
                     dismissProgressDialog();
-                    displayHistoryItemWithoutReload(waffle, user, "Waffle");
+                    displayHistoryItemWithoutReload(user + " says " + waffle);
                 }
 
                 public void onFailure(Object o) {
@@ -155,9 +155,9 @@ public class MatchActivity extends Activity {
         progressDialog.dismiss();
     }
 
-    private void displayHistoryItemWithoutReload(String content, String user, String type) {
+    private void displayHistoryItemWithoutReload(String content) {
         HistoryItem hi = new HistoryItem();
-        hi.setCreatedAt("~");
+        hi.setCreatedAt("00:00.00");
         hi.setColour("#FFFFFF"); // white because we don't know ... TODO: find out
         hi.setContent(content);
         displayMatch(match.addRecentHistoryItem(hi));
@@ -174,7 +174,7 @@ public class MatchActivity extends Activity {
         if(predictedRuns > -1 ){
             getIntent().removeExtra("predictedRuns");
             match = Cache.getMatch(matchDescriptor);
-            displayHistoryItemWithoutReload(predictedRuns + "", readUserName(), "Prediction");
+            displayHistoryItemWithoutReload(readUserName() + " chooses " + predictedRuns);
         }
         else{
             progressDialog = ProgressDialog.show(MatchActivity.this, "", "Loading Match...", true);

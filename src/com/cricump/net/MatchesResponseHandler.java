@@ -1,5 +1,6 @@
 package com.cricump.net;
 
+import com.cricump.activity.MatchesActivity;
 import com.cricump.data.Cache;
 import com.cricump.data.Match;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -16,8 +17,9 @@ public class MatchesResponseHandler extends JsonHttpResponseHandler {
 
     public void onSuccess(org.json.JSONArray jsonArray) {
         try {
-            String[] strings = new String[jsonArray.length()];//{"foo vs. bar", "baz vs foo", "bar vs baz"};
-            for (int i = 0; i < jsonArray.length(); i++) {
+            int matchCount = jsonArray.length();
+            String[] strings = new String[matchCount + 1];//{"foo vs. bar", "baz vs foo", "bar vs baz", "REFRESH MATCH LIST"};
+            for (int i = 0; i < matchCount; i++) {
                 final JSONObject matchJson = jsonArray.getJSONObject(i);
                 final String descriptor = matchJson.getString("descriptor");
                 final String url = matchJson.getString("url");
@@ -26,6 +28,7 @@ public class MatchesResponseHandler extends JsonHttpResponseHandler {
                 Cache.setMatch(descriptor,match);
                 strings[i] = descriptor;
             }
+            strings[matchCount] = MatchesActivity.REFRESH_MATCHES;
             Cache.setMatchDescriptors(strings);
             _clientCallback.onSuccess("Matches Loaded");
         } catch (JSONException e) {

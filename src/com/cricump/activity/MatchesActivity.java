@@ -16,14 +16,21 @@ import com.cricump.net.ClientCallback;
 
 public class MatchesActivity extends ListActivity {
 
+    public static final String REFRESH_MATCHES = "REFRESH MATCH LIST";
     private ProgressDialog progressDialog;
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         final String matchDescriptor = ((TextView) v).getText().toString();
-        final Intent intent = new Intent(MatchesActivity.this, MatchActivity.class);
-        intent.putExtra("matchDescriptor", matchDescriptor);
-        startActivity(intent);
+        if(matchDescriptor.equals(REFRESH_MATCHES) ){
+            Cache.setMatchDescriptors(null);
+            init();
+        }
+        else {
+            final Intent intent = new Intent(MatchesActivity.this, MatchActivity.class);
+            intent.putExtra("matchDescriptor", matchDescriptor);
+            startActivity(intent);
+        }
     }
 
     @Override

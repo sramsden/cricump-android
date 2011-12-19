@@ -12,8 +12,8 @@ import org.json.JSONObject;
 public class Client {
 
     // for some reason local ip 192.168.0.12:3000 not working .. but using gateway port forwarding can use ...
-//    private static final String BASE_URL = "http://114.77.27.130:3000"; // can set to :3001 to simulate connection refused
-    private static final String BASE_URL = "http://cricket.goalump.com";
+    private static final String BASE_URL = "http://114.77.27.130:3000"; // can set to :3001 to simulate connection refused
+//    private static final String BASE_URL = "http://cricket.goalump.com";
     private static final AsyncHttpClient CLIENT = new AsyncHttpClient();
 
 
