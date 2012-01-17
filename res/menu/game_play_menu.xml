@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/refresh"
+          android:icon="@drawable/button"
+          android:title="@string/refresh" />
+    <item android:id="@+id/more_history"
+          android:icon="@drawable/button"
+          android:title="@string/more_history" />
+    <item android:id="@+id/other_matches"
+          android:icon="@drawable/button"
+          android:title="@string/other_matches" />
+    <item android:id="@+id/sign_out"
+          android:icon="@drawable/button"
+          android:title="@string/sign_out" />
+</menu>

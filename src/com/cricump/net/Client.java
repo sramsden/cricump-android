@@ -7,13 +7,14 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Client {
 
     // for some reason local ip 192.168.0.12:3000 not working .. but using gateway port forwarding can use ...
-    private static final String BASE_URL = "http://114.77.27.130:3000"; // can set to :3001 to simulate connection refused
-//    private static final String BASE_URL = "http://cricket.goalump.com";
+//    private static final String BASE_URL = "http://114.77.27.130:3000"; // can set to :3001 to simulate connection refused
+    private static final String BASE_URL = "http://cricket.goalump.com";
     private static final AsyncHttpClient CLIENT = new AsyncHttpClient();
 
 
@@ -32,7 +33,7 @@ public class Client {
 
     public static void loadRecentMatchHistory(final String descriptor, final ClientCallback clientCallback) {
         Match match = Cache.getMatch(descriptor);
-        if(match.getCommentaryUrl() == null ){
+        if(match.getCommentaryAndRankingUrl() == null ){
             CLIENT.get(match.getUrl(), null, new MatchResponseHandler(new ClientCallback() {
                 public void onSuccess(Object o) {
                     loadRecentMatchHistoryDirectly(descriptor, clientCallback);
@@ -72,10 +73,10 @@ public class Client {
         String since = null;
         if(recentHistoryItems != null && recentHistoryItems.length > 0){
             HistoryItem last = recentHistoryItems[recentHistoryItems.length - 1];
-            since = last.getCreatedAt();
+            since = last.getId();
         }
         RequestParams params = new RequestParams("since", since);
-        CLIENT.get(match.getCommentaryUrl(), params, new RecentMatchHistoryResponseHandler(match, clientCallback));
+        CLIENT.get(match.getCommentaryAndRankingUrl(), params, new RecentMatchHistoryResponseHandler(match, clientCallback));
     }
 
     public static void loadAllMatchHistory(final String descriptor, final ClientCallback clientCallback) {
@@ -85,11 +86,13 @@ public class Client {
             public void onSuccess(Object o) {
                 Match match = Cache.getMatch(descriptor);
                 RequestParams params = new RequestParams("history_limit", "100");
-                CLIENT.get(match.getCommentaryUrl(), params, new MoreMatchHistoryResponseHandler(match, clientCallback));
+//                String url = match.getCommentaryUrl();
+                String url = match.getCommentaryAndRankingUrl();
+                CLIENT.get(url, params, new MoreMatchHistoryResponseHandler(match, clientCallback));
             }
 
             public void onFailure(Object o) {
-              clientCallback.onFailure(o);
+                clientCallback.onFailure(o);
             }
         }));
     }
@@ -105,17 +108,7 @@ public class Client {
         params.put("id", match.getId() + "");
         params.put("user", user);
         params.put("runs", runs + "");
-        CLIENT.post(getAbsoluteUrl("/apis/add_prediction"), params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-                clientCallback.onSuccess("Prediction Submitted");
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                clientCallback.onFailure(throwable);
-            }
-        });
+        CLIENT.post(getAbsoluteUrl("/apis/add_prediction"), params, postResopnseHandler(match, clientCallback));
     }
 
     public static void postWaffle(final Match match, final String user, final String waffle, final ClientCallback clientCallback){
@@ -129,19 +122,30 @@ public class Client {
         params.put("id", match.getId() + "");
         params.put("user", user);
         params.put("waffle", waffle);
-        CLIENT.post(getAbsoluteUrl("/apis/add_waffle"), params, new JsonHttpResponseHandler(){
+        CLIENT.post(getAbsoluteUrl("/apis/add_waffle"), params, postResopnseHandler(match, clientCallback));
+    }
+
+
+    private static AbstractMatchHistoryResponseHandler postResopnseHandler(final Match match, final ClientCallback clientCallback) {
+        return new AbstractMatchHistoryResponseHandler(match, clientCallback){
             @Override
-            public void onSuccess(JSONObject jsonObject) {
-                clientCallback.onSuccess("Waffle Submitted");
+            public void onSuccess(JSONObject json) {
+                try {
+                    readRecentCommentaryJson(json);
+                    readRankingJson(json); // can only do when we are reading from commentary_and_ranking_url !!!
+                    clientCallback.onSuccess(match);
+                } catch (JSONException e) {
+                    onFailure(e);
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Throwable throwable) {
                 clientCallback.onFailure(throwable);
             }
-        });
+        };
     }
-
 
 
 }

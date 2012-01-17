@@ -1,6 +1,7 @@
 package com.cricump.data;
 
 public class HistoryItem {
+    private String id; // eg, "11326715278"
     private String createdAt; // eg, "10:03.48 "
     private String colour;  // eg, "#33ffff"
     private String content; // eg, "Runs 6 Tally 6 Score 3/162"
@@ -11,6 +12,14 @@ public class HistoryItem {
 
     public boolean equals(HistoryItem other){
         return (other != null && this.toString().equals(other.toString()));
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCreatedAt() {

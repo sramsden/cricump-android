@@ -8,6 +8,7 @@ public class Match {
     private String scheduledStart;
     private String scheduledStartString; // TODO: currently not using .. need it?
     private String commentaryUrl;
+    private String commentaryAndRankingUrl;
     private String rankingUrl;
     private String matchesUrl;
 
@@ -94,6 +95,14 @@ public class Match {
 
     public void setRankingUrl(String rankingUrl) {
         this.rankingUrl = rankingUrl;
+    }
+
+    public String getCommentaryAndRankingUrl() {
+        return commentaryAndRankingUrl;
+    }
+
+    public void setCommentaryAndRankingUrl(String commentaryAndRankingUrl) {
+        this.commentaryAndRankingUrl = commentaryAndRankingUrl;
     }
 
     public String getMatchesUrl() {

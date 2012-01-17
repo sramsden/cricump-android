@@ -1,7 +1,6 @@
 package com.cricump.net;
 
 import com.cricump.data.Match;
-import org.json.JSONArray;
 import org.json.JSONException;
 
 public class MoreMatchHistoryResponseHandler extends AbstractMatchHistoryResponseHandler {
@@ -12,8 +11,7 @@ public class MoreMatchHistoryResponseHandler extends AbstractMatchHistoryRespons
 
     public void onSuccess(org.json.JSONObject json) {
         try {
-            final JSONArray history = json.getJSONArray("commentary");
-            match.setMoreHistoryItems(parseHistoryItems(history));
+            readMoreCommentaryJson(json);
             clientCallback.onSuccess(match);
         } catch (JSONException e) {
             onFailure(e);

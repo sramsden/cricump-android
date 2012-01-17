@@ -23,6 +23,7 @@ public class MatchResponseHandler extends JsonHttpResponseHandler {
             match.setCommentaryUrl(matchJson.getString("commentary_url"));
             match.setMatchesUrl(matchJson.getString("matches_url"));
             match.setRankingUrl(matchJson.getString("ranking_url"));
+            match.setCommentaryAndRankingUrl(matchJson.getString("commentary_and_ranking_url"));
             Cache.setMatch(descriptor, match);
             clientCallback.onSuccess("Match Loaded");
         } catch (JSONException e) {

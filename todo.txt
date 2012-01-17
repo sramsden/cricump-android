@@ -1,0 +1,11 @@
+======================================================
+TODO:
++ ensure rankings are refreshed upon match refresh
+::>am invoking displayRankingsTable now ... *should* be ok
+
++ change choose view to be a grid view of buttons instead of a list
+http://developer.android.com/resources/tutorials/views/hello-gridview.html
+
++ change matches list to something more appealing and have a proper refresh button or context menu item
+
++ add a context menu to the game play screen and put in it ... refresh, show more history, other matches and sign out

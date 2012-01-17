@@ -1,8 +1,6 @@
 package com.cricump.net;
 
 import com.cricump.data.Match;
-import com.cricump.data.Ranking;
-import org.json.JSONArray;
 import org.json.JSONException;
 
 public class RecentMatchHistoryResponseHandler extends AbstractMatchHistoryResponseHandler {
@@ -13,9 +11,8 @@ public class RecentMatchHistoryResponseHandler extends AbstractMatchHistoryRespo
 
     public void onSuccess(org.json.JSONObject json) {
         try {
-            final JSONArray history = json.getJSONArray("commentary");
-            match.setRecentHistoryItems(parseHistoryItems(history));
-//            match.addRecentHistoryItems(parseHistoryItems(history)); // TODO: use add when fetching history 'since'
+            readRecentCommentaryJson(json);
+            readRankingJson(json); // can only do when we are reading from commentary_and_ranking_url !!!
             clientCallback.onSuccess(match);
         } catch (JSONException e) {
             onFailure(e);

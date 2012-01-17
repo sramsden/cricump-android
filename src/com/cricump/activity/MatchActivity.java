@@ -11,6 +11,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -87,6 +90,34 @@ public class MatchActivity extends Activity {
         displayByUser();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.game_play_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                refresh(null);
+                return true;
+            case R.id.more_history:
+                toggleHistory(null);
+                return true;
+            case R.id.other_matches:
+                chooseMatch(null);
+                return true;
+            case R.id.sign_out:
+                signOut(null);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private SharedPreferences.Editor getPrefsEditor() {
         SharedPreferences settings = getSharedPreferences(MatchActivity.SHARED_PREFERENCES, 0);
         return settings.edit();
@@ -139,7 +170,7 @@ public class MatchActivity extends Activity {
                 public void onSuccess(Object o) {
                     waffleTextField.setText("");
                     dismissProgressDialog();
-                    displayHistoryItemWithoutReload(user + " says " + waffle);
+                    displayMatch(match.getRecentHistoryItems());
                 }
 
                 public void onFailure(Object o) {
@@ -174,7 +205,7 @@ public class MatchActivity extends Activity {
         if(predictedRuns > -1 ){
             getIntent().removeExtra("predictedRuns");
             match = Cache.getMatch(matchDescriptor);
-            displayHistoryItemWithoutReload(readUserName() + " chooses " + predictedRuns);
+            displayMatch(match.getRecentHistoryItems());
         }
         else{
             progressDialog = ProgressDialog.show(MatchActivity.this, "", "Loading Match...", true);
@@ -206,15 +237,6 @@ public class MatchActivity extends Activity {
     }
 
     private void loadAndDisplayRecentHistory() {
-        Client.loadMatchRankings(matchDescriptor, new ClientCallback() {
-            public void onSuccess(Object o) {
-                // do nothing .. fall through to history check..
-            }
-
-            public void onFailure(Object o) {
-                displayFailure();
-            }
-        });
         Client.loadRecentMatchHistory(matchDescriptor, new ClientCallback() {
             public void onSuccess(Object o) {
                 match = (Match) o;
