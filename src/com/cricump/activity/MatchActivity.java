@@ -36,7 +36,7 @@ public class MatchActivity extends Activity {
     private Match match;
     private LinearLayout userNameLayout;
     private LinearLayout chooseRunsLayout;
-    private LinearLayout postWaffleLayout;
+    private RelativeLayout postWaffleLayout;
     private View signOut;
     private ScrollView scrollMatch;
 
@@ -51,7 +51,7 @@ public class MatchActivity extends Activity {
         userNameButton = (Button) findViewById(R.id.user_name_button);
         userNameLayout = (LinearLayout) findViewById(R.id.user_name_layout);
         chooseRunsLayout = (LinearLayout) findViewById(R.id.choose_runs_layout);
-        postWaffleLayout = (LinearLayout) findViewById(R.id.post_waffle_layout);
+        postWaffleLayout = (RelativeLayout) findViewById(R.id.post_waffle_layout);
         signOut = findViewById(R.id.sign_out);
         refresh(null);
     }
@@ -80,6 +80,10 @@ public class MatchActivity extends Activity {
     public void chooseMatch(View view) {
         final Intent intent = new Intent(MatchActivity.this, MatchesActivity.class);
         startActivity(intent);
+    }
+
+    public void chooseCannedMessage(View view){
+        startCannedMessageActivity(view);
     }
 
     public void signOut(View view) {
@@ -127,6 +131,12 @@ public class MatchActivity extends Activity {
         final Intent intent = new Intent(MatchActivity.this, ChooseRunsActivity.class);
         intent.putExtra("matchDescriptor", matchDescriptor);
         intent.putExtra("button", view.getId());
+        startActivity(intent);
+    }
+
+    private void startCannedMessageActivity(View view) {
+        final Intent intent = new Intent(MatchActivity.this, CannedMessageActivity.class);
+        intent.putExtra("matchDescriptor", matchDescriptor);
         startActivity(intent);
     }
 
@@ -201,8 +211,8 @@ public class MatchActivity extends Activity {
 
     public void refresh(View view) {
         matchDescriptor = getIntent().getStringExtra("matchDescriptor");
-        int predictedRuns = getIntent().getIntExtra("predictedRuns", -1);
-        if(predictedRuns > -1 ){
+        int predictedRuns = getIntent().getIntExtra("predictedRuns", -2);
+        if(predictedRuns > -2 ){
             getIntent().removeExtra("predictedRuns");
             match = Cache.getMatch(matchDescriptor);
             displayMatch(match.getRecentHistoryItems());

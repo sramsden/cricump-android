@@ -29,6 +29,7 @@ public class MatchesActivity extends ListActivity {
         else {
             final Intent intent = new Intent(MatchesActivity.this, MatchActivity.class);
             intent.putExtra("matchDescriptor", matchDescriptor);
+            Cache.removeCannedMessages(); // ensure canned messages list refreshed also
             startActivity(intent);
         }
     }

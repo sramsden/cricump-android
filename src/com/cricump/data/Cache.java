@@ -8,6 +8,24 @@ public class Cache {
 
     private static final Map cache = new HashMap();
 
+    public static void setCannedMessages(String[] messages) {
+        cache.put(cannedMessagesCacheKey(), messages);
+    }
+
+    public static String[] getCannedMessages() {
+        return (String[]) cache.get(cannedMessagesCacheKey());
+    }
+
+    private static String cannedMessagesCacheKey() {
+        Calendar cal = Calendar.getInstance();
+        int day = cal.get(Calendar.DATE);
+        return "canned-messages-" + day;
+    }
+
+    public static String[] removeCannedMessages() {
+        return (String[]) cache.remove(cannedMessagesCacheKey());
+    }
+
     public static void setMatchDescriptors(String[] matchDescriptors) {
         cache.put(matchDescriptorsCacheKey(), matchDescriptors);
     }

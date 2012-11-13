@@ -73,7 +73,7 @@
                             android:onClick="saveUserName"/>
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+            <RelativeLayout
                     android:id="@+id/post_waffle_layout"
                     android:orientation="horizontal"
                     android:layout_gravity="center_horizontal"
@@ -81,20 +81,35 @@
                     android:layout_height="fill_parent"
                     android:visibility="gone"
                     >
-                <EditText
-                        android:id="@+id/waffle"
-                        android:layout_width="200sp"
-                        android:layout_height="wrap_content"
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
                         android:layout_centerVertical="true"
-                        android:singleLine="true"
-                        />
-                <Button android:id="@+id/post_waffle_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+                    <EditText
+                            android:id="@+id/waffle"
+                            android:layout_width="200sp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:singleLine="true"
+                            />
+                    <Button android:id="@+id/post_waffle_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="POST"
+                            android:onClick="postWaffle"/>
+                </LinearLayout>
+                <Button android:id="@+id/choose_canned_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="Post Message"
-                        android:onClick="postWaffle"/>
-            </LinearLayout>
+                        android:layout_alignParentRight="true"
+                        android:text="..."
+                        android:onClick="chooseCannedMessage"/>
+
+            </RelativeLayout>
             <LinearLayout
                     android:id="@+id/choose_runs_layout"
                     android:orientation="vertical"

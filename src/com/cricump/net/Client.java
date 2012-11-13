@@ -12,8 +12,8 @@ import org.json.JSONObject;
 
 public class Client {
 
-    // for some reason local ip 192.168.0.12:3000 not working .. but using gateway port forwarding can use ...
-//    private static final String BASE_URL = "http://114.77.27.130:3000"; // can set to :3001 to simulate connection refused
+//    private static final String BASE_URL = "http://10.0.2.2:3000"; // can set to :3001 to simulate connection refused
+//    private static final String BASE_URL = "http://192.168.1.1082:3000";
     private static final String BASE_URL = "http://cricket.goalump.com";
     private static final AsyncHttpClient CLIENT = new AsyncHttpClient();
 
@@ -95,6 +95,11 @@ public class Client {
                 clientCallback.onFailure(o);
             }
         }));
+    }
+
+    public static void loadCannedMessages(final ClientCallback clientCallback) {
+        String endpoint = "/apis/canned_messages.json";
+        get(endpoint, null, new CannedMessagesResponseHandler(clientCallback));
     }
 
     public static void postPrediction(final Match match, final String user, final int runs, final ClientCallback clientCallback){

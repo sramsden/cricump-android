@@ -17,18 +17,19 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout01=0x7f060001;
-        public static final int choose_runs_button=0x7f06000e;
-        public static final int choose_runs_label=0x7f06000d;
-        public static final int choose_runs_layout=0x7f06000c;
+        public static final int choose_canned_message=0x7f06000c;
+        public static final int choose_runs_button=0x7f06000f;
+        public static final int choose_runs_label=0x7f06000e;
+        public static final int choose_runs_layout=0x7f06000d;
         public static final int history_table=0x7f060003;
-        public static final int more_history=0x7f060012;
-        public static final int other_matches=0x7f060010;
+        public static final int more_history=0x7f060013;
+        public static final int other_matches=0x7f060011;
         public static final int post_waffle_button=0x7f06000b;
         public static final int post_waffle_layout=0x7f060009;
-        public static final int rankings=0x7f06000f;
+        public static final int rankings=0x7f060010;
         public static final int refresh=0x7f060004;
         public static final int scroll_match=0x7f060002;
-        public static final int sign_out=0x7f060011;
+        public static final int sign_out=0x7f060012;
         public static final int splash_img=0x7f060000;
         public static final int toggleHistory=0x7f060005;
         public static final int user_name=0x7f060007;
