@@ -1,5 +1,6 @@
 package com.cricump.net;
 
+import android.content.Context;
 import com.cricump.data.Cache;
 import com.cricump.data.HistoryItem;
 import com.cricump.data.Match;
@@ -12,9 +13,9 @@ import org.json.JSONObject;
 
 public class Client {
 
-//    private static final String BASE_URL = "http://10.0.2.2:3000"; // can set to :3001 to simulate connection refused
+    private static final String BASE_URL = "http://10.0.2.2:3000"; // can set to :3001 to simulate connection refused
 //    private static final String BASE_URL = "http://192.168.1.1082:3000";
-    private static final String BASE_URL = "http://cricket.goalump.com";
+//    private static final String BASE_URL = "http://cricket.goalump.com";
     private static final AsyncHttpClient CLIENT = new AsyncHttpClient();
 
 
@@ -128,6 +129,10 @@ public class Client {
         params.put("user", user);
         params.put("waffle", waffle);
         CLIENT.post(getAbsoluteUrl("/apis/add_waffle"), params, postResopnseHandler(match, clientCallback));
+    }
+
+    public static void cancelRequests(Context applicationContext){
+        CLIENT.cancelRequests(applicationContext, true);
     }
 
 

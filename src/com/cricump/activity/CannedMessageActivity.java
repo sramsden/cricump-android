@@ -15,16 +15,17 @@ import com.cricump.data.Cache;
 import com.cricump.data.Match;
 import com.cricump.net.Client;
 import com.cricump.net.ClientCallback;
+import com.cricump.util.CancelableDialog;
 
 public class CannedMessageActivity extends ListActivity {
 
-    private ProgressDialog progressDialog;
+    private CancelableDialog progressDialog;
     private Match match;
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         String user = readUserName();
-        progressDialog = ProgressDialog.show(CannedMessageActivity.this, "", "Submitting...", true);
+        progressDialog = CancelableDialog.show(CannedMessageActivity.this, getApplicationContext(), "Submitting...");
         ClientCallback clientCallback = new ClientCallback() {
             public void onSuccess(Object o) {
                 progressDialog.dismiss();
@@ -50,7 +51,7 @@ public class CannedMessageActivity extends ListActivity {
     }
 
     private void init() {
-        progressDialog = ProgressDialog.show(CannedMessageActivity.this, "", "Loading Canned Messages...", true);
+        progressDialog = CancelableDialog.show(CannedMessageActivity.this, getApplicationContext(), "Loading Canned Messages...");
         String[] cannedMessages = Cache.getCannedMessages();
         if (cannedMessages != null) {
             displayCannedMessages();
