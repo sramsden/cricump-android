@@ -13,11 +13,13 @@ import android.widget.TextView;
 import com.cricump.data.Cache;
 import com.cricump.net.Client;
 import com.cricump.net.ClientCallback;
+import com.cricump.util.CancelableDialog;
 
 public class MatchesActivity extends ListActivity {
 
     public static final String REFRESH_MATCHES = "REFRESH MATCH LIST";
-    private ProgressDialog progressDialog;
+    private CancelableDialog progressDialog;
+
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -41,7 +43,7 @@ public class MatchesActivity extends ListActivity {
     }
 
     private void init() {
-        progressDialog = ProgressDialog.show(MatchesActivity.this, "", "Loading Matches...", true);
+        progressDialog = CancelableDialog.show(MatchesActivity.this, getApplicationContext(), "Loading Matches...");
         final String[] descriptors = Cache.getMatchDescriptors();
         if (descriptors != null) {
             displayMatches(descriptors);

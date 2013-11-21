@@ -14,17 +14,18 @@ import com.cricump.data.Cache;
 import com.cricump.data.Match;
 import com.cricump.net.Client;
 import com.cricump.net.ClientCallback;
+import com.cricump.util.CancelableDialog;
 
 public class ChooseRunsActivity extends ListActivity {
 
-    private ProgressDialog progressDialog;
+    private CancelableDialog progressDialog;
     private Match match;
 
     @Override
     protected void onListItemClick(ListView l, View v, final int position, long id) {
         String user = readUserName();
         // for simple list item of runs.. 0, 1, 2 etc. ... the runs value equals the position..
-        progressDialog = ProgressDialog.show(ChooseRunsActivity.this, "", "Submitting Prediction...", true);
+        progressDialog = CancelableDialog.show(ChooseRunsActivity.this, getApplicationContext(), "Submitting Prediction...");
         Client.postPrediction(match, user, position, new ClientCallback() {
             public void onSuccess(Object o) {
                 progressDialog.dismiss();

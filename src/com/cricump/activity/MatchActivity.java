@@ -21,12 +21,13 @@ import com.cricump.R;
 import com.cricump.data.*;
 import com.cricump.net.Client;
 import com.cricump.net.ClientCallback;
+import com.cricump.util.CancelableDialog;
 
 public class MatchActivity extends Activity {
 
     public static final String SHARED_PREFERENCES = "CricUmp";
     public static final String USER = "user";
-    private ProgressDialog progressDialog;
+    private CancelableDialog progressDialog;
     private String matchDescriptor;
     private boolean displayMoreHistory = false;
     private Button toggleHistoryButton;
@@ -175,7 +176,7 @@ public class MatchActivity extends Activity {
         final TextView waffleTextField = (TextView) findViewById(R.id.waffle);
         final String waffle = waffleTextField.getText().toString();
         if(user != null && user.length() > 0 && waffle != null && waffle.length() > 0 ){
-            progressDialog = ProgressDialog.show(MatchActivity.this, "", "Submitting Waffle...", true);
+            progressDialog = CancelableDialog.show(MatchActivity.this, getApplicationContext(), "Submitting Waffle...");
             Client.postWaffle(match, user, waffle, new ClientCallback() {
                 public void onSuccess(Object o) {
                     waffleTextField.setText("");
@@ -218,7 +219,7 @@ public class MatchActivity extends Activity {
             displayMatch(match.getRecentHistoryItems());
         }
         else{
-            progressDialog = ProgressDialog.show(MatchActivity.this, "", "Loading Match...", true);
+            progressDialog = CancelableDialog.show(MatchActivity.this, getApplicationContext(), "Loading Match...");
             if (displayMoreHistory)
                 loadAndDisplayAllHistory();
             else
